@@ -7,6 +7,9 @@ import dotenv from 'dotenv';
 import connectToSocket from './controllers/socketManager.js'
 dotenv.config();
 
+// importing routes
+import userRoutes from './routes/userRoutes.js'
+
 const app = express();
 const server = createServer(app);
 const io = connectToSocket(server);
@@ -20,7 +23,8 @@ app.use(express.json({
 app.use(express.urlencoded({
     limit:"40kb" , extended:true
 }));
-
+// registering routes here
+app.use('/api/v1/users' , userRoutes);
 
 app.get('/', (req, res) => {
     return res.json({ "Hello": "world" });
