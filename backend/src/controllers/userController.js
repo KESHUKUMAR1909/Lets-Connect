@@ -44,9 +44,8 @@ const login = async (req , res)=>{
                 message: "User already Exists"
             });
         }
-        
-    
-        if(bcrypt.compare(password , exisitingUser.password )){
+        let isPasswordCorrect = await bcrypt.compare(password , exisitingUser.password );
+        if(isPasswordCorrect){
             let token = crypto.randomBytes(20).toString('hex');
            
             exisitingUser.token = token;
@@ -54,6 +53,10 @@ const login = async (req , res)=>{
             return res.status(httpStatus.OK).json({
                 token:token
             });
+        }else{
+            return res.status(httpStatus.UNAUTHORIZED).json({
+                message:"Invalid username or password"
+            })
         }
 
     }catch(error){

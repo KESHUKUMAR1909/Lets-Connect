@@ -55,7 +55,7 @@ const connectToSocket = async (server) => {
       }
     });
     socket.on('disconnect', () => {
-      var diffTime = Math.abs(timeOnline[socket.id] - new Data());
+      var diffTime = Math.abs(timeOnline[socket.id] - new Date());
       var key;
       for (const [k, v] of JSON.parse(JSON.stringify(Object.entries(connections)))) {
         for (let a = 0; a < v.length; ++a) {
